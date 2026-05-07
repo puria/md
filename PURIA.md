@@ -90,6 +90,54 @@ is forbidden unless explicitly requested.
 
 ---
 
+## Secrets And Ignore Files
+
+Agents MUST NEVER commit secrets or sensitive data.
+
+Sensitive data includes, but is not limited to:
+
+- `.env`
+- `.env.*`
+- API keys
+- access tokens
+- private keys
+- certificates
+- credentials
+- database dumps
+- production configuration
+- local machine paths containing secrets
+
+Every new project MUST include a secure-by-default `.gitignore` before the first commit.
+
+The `.gitignore` MUST ignore:
+
+- environment files
+- secret files
+- private keys and certificates
+- dependency directories
+- build outputs
+- logs
+- caches
+- editor and operating-system files
+- local database files
+- generated coverage artifacts
+
+Before every commit, agents MUST inspect staged files for secrets and sensitive data.
+
+If a secret or sensitive file is found staged:
+
+→ STOP
+
+→ unstage it
+
+→ add or fix `.gitignore`
+
+→ report the issue
+
+→ do NOT commit until corrected
+
+---
+
 ### Required Git State
 
 A valid project MUST have:
