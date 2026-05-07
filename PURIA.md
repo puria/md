@@ -68,6 +68,7 @@ Unless explicitly forbidden, every task MUST:
 - produce a complete, runnable project
 - include tests for core behavior
 - include `mise.toml` with pinned Go version
+- include `task = "latest"` in `mise.toml`
 - include `Taskfile.yml`
 - initialize git when creating projects
 - create at least one valid commit
@@ -178,12 +179,21 @@ Absence of any:
 
 ## Go Toolchain
 
-`mise.toml` MUST define Go version:
+`mise.toml` MUST define Go version and Task:
 
 ```toml
 [tools]
 go = "1.26.2"
+task = "latest"
 ```
+
+If `task lint:design` cannot run because `task` is not installed:
+
+→ mise is not being used yet
+
+→ `mise.toml` MUST include `task = "latest"`
+
+→ the task remains incomplete until corrected
 
 ---
 
@@ -199,6 +209,14 @@ tasks:
     cmds:
       - go test ./...
 
+  lint:
+    cmds:
+      - task lint:design
+
+  lint:design:
+    cmds:
+      - if [ -f DESIGN.md ]; then npx --yes @google/design.md lint DESIGN.md; fi
+
   run:
     cmds:
       - go run .
@@ -207,6 +225,30 @@ tasks:
     cmds:
       - go build -o bin/starter .
 ```
+
+---
+
+## Design Source
+
+If `DESIGN.md` is present:
+
+→ it is the source of truth for design
+
+→ agents MUST follow it
+
+→ `mise.toml` MUST include `node = "latest"`
+
+→ agents MUST validate it through `task lint`
+
+→ `task lint` MUST run `task lint:design`
+
+→ `task lint:design` MUST run `npx --yes @google/design.md lint DESIGN.md`
+
+If `DESIGN.md` is absent:
+
+→ do not infer a design system
+
+→ do not create one unless explicitly requested
 
 ---
 
