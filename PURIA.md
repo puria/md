@@ -88,6 +88,38 @@ git push
 
 is forbidden unless explicitly requested.
 
+Before every commit, agents MUST run formatting and linting.
+
+Required pre-commit validation:
+
+```sh
+task lint
+```
+
+Formatting MUST also be run through the repository-defined formatter before committing.
+
+If the repository has no formatting task or formatter defined:
+
+→ STOP
+
+→ append the missing formatting rule to `HITL.md`
+
+→ do NOT commit
+
+If formatting or linting fails:
+
+→ STOP
+
+→ fix the issue
+
+→ rerun formatting and linting
+
+→ do NOT commit until both pass
+
+A commit made without successful formatting and linting:
+
+→ FAILURE
+
 ---
 
 ## Secrets And Ignore Files
