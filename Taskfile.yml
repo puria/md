@@ -1,0 +1,15 @@
+version: "3"
+
+tasks:
+  format:
+    cmds:
+      - npx --yes prettier --write AGENTS.md DESIGN.md HITL.md PURIA.md Taskfile.yml
+      - taplo format mise.toml
+
+  lint:
+    cmds:
+      - task lint:design
+
+  lint:design:
+    cmds:
+      - if [ -f DESIGN.md ]; then npx --yes @google/design.md lint DESIGN.md; fi

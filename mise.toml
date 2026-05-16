@@ -1,0 +1,5 @@
+[tools]
+go = "1.26.2"
+node = "latest"
+taplo = "latest"
+task = "latest"
