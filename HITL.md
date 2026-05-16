@@ -37,7 +37,7 @@ Only add an entry if:
 If unsure:
 
 → DO NOT add  
-→ DO NOT assume  
+→ DO NOT assume
 
 ---
 
@@ -52,3 +52,15 @@ If unsure:
 ---
 
 ## Entries
+
+- id: hitl-0001
+- observation: Required validation tooling is missing for pre-commit checks.
+- location: repository root
+- evidence: `task lint` fails with `task: command not found`; `Taskfile.yml` and `mise.toml` are absent.
+- rationale: `PURIA.md` requires formatting and linting before commits, with required tools declared in `mise.toml`.
+
+- id: hitl-0002
+- observation: Repository formatting rule is missing.
+- location: repository root
+- evidence: `Taskfile.yml` defines `lint` and `lint:design`, but no formatting task or formatter is defined.
+- rationale: `PURIA.md` requires formatting through a repository-defined formatter before commits.

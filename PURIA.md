@@ -7,7 +7,7 @@ It is the canonical source of truth for agents, assistants, humans, automation, 
 If another instruction conflicts with this file:
 
 → STOP  
-→ surface the conflict  
+→ surface the conflict
 
 ---
 
@@ -18,7 +18,7 @@ All rules in this document are mandatory unless explicitly stated otherwise.
 If a rule is violated:
 
 → the task is considered incomplete  
-→ the agent MUST correct it before finishing  
+→ the agent MUST correct it before finishing
 
 Agents MUST NOT:
 
@@ -282,7 +282,7 @@ If `task lint:design` cannot run because `task` is not installed:
 `Taskfile.yml` MUST include:
 
 ```yaml
-version: '3'
+version: "3"
 
 tasks:
   test:
@@ -309,6 +309,40 @@ tasks:
 ---
 
 ## Design Source
+
+All Puria design MUST be neubrutalist.
+
+If a task includes any web UI:
+
+→ follow `https://neubrutalism.com` as the design reference
+
+If a task includes TUI design:
+
+→ apply neubrutalist principles to the terminal interface
+
+Required neubrutalist traits:
+
+- thick, explicit borders
+- hard offset shadows where the medium supports them
+- square or near-square corners
+- flat high-contrast color
+- bold typography
+- visible structure
+- clear hierarchy
+- no gradients
+- no soft, blurred, polished-neutral styling
+
+If the project uses Svelte:
+
+→ prefer existing neobrutalist Svelte components when they fit the task
+
+If existing components do not fit:
+
+→ implement custom components that follow the same neubrutalist design rules
+
+`DESIGN.md` defines the mandatory Puria neubrutalist design system.
+
+Agents MUST read `DESIGN.md` before any task that affects web UI, TUI, visual identity, layout, components, typography, colors, or design-bearing documentation.
 
 If `DESIGN.md` is present:
 
@@ -437,6 +471,7 @@ Every Go project using `Taskfile.yml` MUST declare both Go and Task:
 go = "1.26.2"
 task = "latest"
 ```
+
 Agents MUST NOT create Taskfile.yml without also declaring task in mise.toml.
 
 Then your `mise install` should actually install Task, and:
