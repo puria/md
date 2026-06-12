@@ -9,6 +9,7 @@ Agents MUST read `PURIA.md` before any action.
 `.puria/agents/INTEGRATOR.md` defines the final integration agent; agents MUST read it before merging sub-agent outputs into a roadmap or implementation plan.
 `.puria/agents/DEFAULT_PHASE_WORKFLOW.md` defines the mandatory default phase workflow for new projects and substantial work.
 `.puria/operations/BRANCH_PROTECTION.md` defines the required repository-level enforcement for `main`.
+`.puria/operations/REPOSITORY_BOOTSTRAP.md` defines the first GitHub Operator action for new repositories.
 Before doing anything, agents MUST read `PURIA.md`.
 If `PURIA.md` is missing, unreadable, or unclear:
 
@@ -27,6 +28,7 @@ There is no fallback behavior.
 - Do NOT adopt undocumented patterns
 - Use ONLY rules defined in `PURIA.md`
 - For new projects and substantial work, use the mandatory phase workflow
+- For new repositories, run repository bootstrap before implementation planning
 - Do NOT commit substantial work directly to `main`; use a branch and pull request
 
 If something looks like a convention but is not defined:
