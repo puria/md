@@ -1,0 +1,80 @@
+# BRANCH_PROTECTION.md
+
+This file defines the required repository-level protection for `main`.
+
+It does not replace `PURIA.md`.
+
+Agent doctrine is not enough to prevent direct commits. The repository must enforce the workflow technically.
+
+---
+
+## Required rule
+
+`main` MUST be protected.
+
+Direct commits to `main` MUST NOT be allowed.
+
+All substantial work MUST go through a pull request.
+
+---
+
+## Required GitHub settings
+
+Configure a branch protection rule or repository ruleset for `main` with these requirements:
+
+- require a pull request before merging
+- require at least one approval
+- require conversation resolution before merging
+- require status checks before merging
+- require branches to be up to date before merging when practical
+- block force pushes
+- block branch deletion
+- restrict who can push to `main`
+- include administrators if available
+
+---
+
+## Required agent behavior
+
+Agents MUST NOT write directly to `main` for substantial work.
+
+Agents MUST:
+
+1. create a branch
+2. make changes on the branch
+3. open a draft pull request
+4. include the required phase PR summary
+5. wait for human review or explicit approval
+
+---
+
+## Human review boundary
+
+The pull request is the human review boundary.
+
+Every substantial PR must explain:
+
+- what changed
+- why it matters
+- how to run it
+- how to check it manually
+- what validation ran
+- what the tester checked
+- what could regress
+- what remains to do
+
+---
+
+## Emergency exception
+
+Emergency direct changes to `main` are allowed only with explicit human instruction.
+
+The agent must record the reason in the final report.
+
+---
+
+## Final reminder
+
+This exists because agents can make mistakes.
+
+The repository must enforce the workflow even when an agent forgets.
