@@ -38,6 +38,21 @@ The bootstrap must configure:
 
 ---
 
+## What can be automated
+
+The GitHub Operator can automate these settings with `gh api` when it has repository administration permission:
+
+- repository merge settings
+- squash-only merge policy
+- automatic deletion of head branches after merge
+- pull request branch update button
+- repository rulesets
+- branch protection
+
+If the token lacks permission, the GitHub Operator must stop and ask the human to grant permission or configure the settings manually.
+
+---
+
 ## Required GitHub settings
 
 Configure a branch protection rule or repository ruleset for `main` with these requirements:
