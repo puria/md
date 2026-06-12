@@ -52,7 +52,7 @@ Before modifying anything:
 2. Inspect repository structure
 3. Do NOT infer or adopt undocumented conventions
 4. If a convention is observed but not defined in PURIA.md:
-   → record it in `HITL.md`
+   → record it in `.puria/HITL.md`
 5. Proceed using ONLY known rules from PURIA.md
 6. Make the smallest safe change
 7. Validate the change
@@ -102,7 +102,7 @@ If the repository has no formatting task or formatter defined:
 
 → STOP
 
-→ append the missing formatting rule to `HITL.md`
+→ append the missing formatting rule to `.puria/HITL.md`
 
 → do NOT commit
 
@@ -295,7 +295,7 @@ tasks:
 
   lint:design:
     cmds:
-      - if [ -f DESIGN.md ]; then npx --yes @google/design.md lint DESIGN.md; fi
+      - if [ -f .puria/design/DESIGN.md ]; then npx --yes @google/design.md lint .puria/design/DESIGN.md; fi
 
   run:
     cmds:
@@ -340,11 +340,11 @@ If existing components do not fit:
 
 → implement custom components that follow the same neubrutalist design rules
 
-`DESIGN.md` defines the mandatory Puria neubrutalist design system.
+`.puria/design/DESIGN.md` defines the mandatory Puria neubrutalist design system.
 
-Agents MUST read `DESIGN.md` before any task that affects web UI, TUI, visual identity, layout, components, typography, colors, or design-bearing documentation.
+Agents MUST read `.puria/design/DESIGN.md` before any task that affects web UI, TUI, visual identity, layout, components, typography, colors, or design-bearing documentation.
 
-If `DESIGN.md` is present:
+If `.puria/design/DESIGN.md` is present:
 
 → it is the source of truth for design
 
@@ -356,9 +356,9 @@ If `DESIGN.md` is present:
 
 → `task lint` MUST run `task lint:design`
 
-→ `task lint:design` MUST run `npx --yes @google/design.md lint DESIGN.md`
+→ `task lint:design` MUST run `npx --yes @google/design.md lint .puria/design/DESIGN.md`
 
-If `DESIGN.md` is absent:
+If `.puria/design/DESIGN.md` is absent:
 
 → do not infer a design system
 
