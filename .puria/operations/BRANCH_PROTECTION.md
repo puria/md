@@ -18,6 +18,26 @@ All substantial work MUST go through a pull request.
 
 ---
 
+## First GitHub Operator action
+
+For every new repository, the GitHub Operator MUST run `.puria/operations/REPOSITORY_BOOTSTRAP.md` before creating implementation issues, milestones, project boards, branches, or pull requests.
+
+The bootstrap must configure:
+
+- squash merge only
+- merge commits disabled
+- rebase merge disabled
+- automatic head branch deletion after merge
+- pull request branch update button enabled
+- default branch protection or ruleset
+- pull-request-only changes to `main`
+- at least one required approval
+- resolved conversations before merge
+- force pushes blocked
+- branch deletion blocked
+
+---
+
 ## Required GitHub settings
 
 Configure a branch protection rule or repository ruleset for `main` with these requirements:
@@ -25,11 +45,9 @@ Configure a branch protection rule or repository ruleset for `main` with these r
 - require a pull request before merging
 - require at least one approval
 - require conversation resolution before merging
-- require status checks before merging
-- require branches to be up to date before merging when practical
 - block force pushes
 - block branch deletion
-- restrict who can push to `main`
+- restrict who can push to `main` where practical
 - include administrators if available
 
 ---
