@@ -4,6 +4,7 @@ This repository is governed by `PURIA.md`.
 Agents MUST read `PURIA.md` before any action.
 `PURIA.md` is the single source of truth for agent behavior, engineering style, workflow, git rules, commits, testing, releases, and project-specific doctrine.
 `DESIGN.md` is the design source referenced by `PURIA.md`; agents MUST read it before any task that affects UI, TUI, visual identity, layout, components, typography, or colors.
+`GITHUB_OPERATOR.md` defines the optional GitHub Operator sub-agent; agents MUST read it before any task that creates or manages GitHub labels, milestones, issues, projects, branches, or pull requests.
 Before doing anything, agents MUST read `PURIA.md`.
 If `PURIA.md` is missing, unreadable, or unclear:
 
