@@ -88,6 +88,35 @@ git push
 
 is forbidden unless explicitly requested.
 
+Before every commit, agents MUST verify the active commit identity.
+
+Required identity check:
+
+```sh
+git config user.name
+git config user.email
+```
+
+The identity MUST be the human or project-approved author identity.
+
+Placeholder, test, example, or unknown identities are forbidden.
+
+Forbidden examples include:
+
+- `Test User`
+- `test@example.com`
+- `example@example.com`
+- empty `user.name`
+- empty `user.email`
+
+If the identity is wrong or unclear:
+
+→ STOP
+
+→ fix the repository-local Git identity or ask the human
+
+→ do NOT commit until the identity is correct
+
 Before every commit, agents MUST run formatting and linting.
 
 Required pre-commit validation:
