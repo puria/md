@@ -68,8 +68,8 @@ Unless explicitly forbidden, every task MUST:
 - produce a complete, runnable project
 - include tests for core behavior
 - include `mise.toml` with pinned Go version
-- include `task = "latest"` in `mise.toml`
-- include `Taskfile.yml`
+- define required commands as mise tasks in `mise.toml`
+- run `go fix ./...` for Go projects
 - initialize git when creating projects
 - create at least one valid commit
 - leave the repository in a clean state
@@ -93,7 +93,7 @@ Before every commit, agents MUST run formatting and linting.
 Required pre-commit validation:
 
 ```sh
-task lint
+mise run lint
 ```
 
 Formatting MUST also be run through the repository-defined formatter before committing.
@@ -246,7 +246,7 @@ Every Go project MUST include:
 ```text
 go.mod
 mise.toml
-Taskfile.yml
+.github/workflows/ci.yml
 main.go
 main_test.go
 ```
@@ -259,52 +259,106 @@ Absence of any:
 
 ## Go Toolchain
 
-`mise.toml` MUST define Go version and Task:
+Every Go project MUST use the Go 1.26 series.
+
+`go.mod` MUST declare:
+
+```go.mod
+go 1.26
+```
+
+`mise.toml` MUST define Go:
 
 ```toml
 [tools]
 go = "1.26.2"
-task = "latest"
+node = "latest"
 ```
 
-If `task lint:design` cannot run because `task` is not installed:
+All project commands MUST be defined as mise tasks in `mise.toml`.
 
-→ mise is not being used yet
+Do not add `Taskfile.yml`.
 
-→ `mise.toml` MUST include `task = "latest"`
+Do not add `task = "latest"` to `mise.toml`.
+
+If `mise run lint:design` cannot run:
+
+→ mise tasks are not configured correctly
 
 → the task remains incomplete until corrected
 
 ---
 
-## Taskfile
+## Mise Tasks
 
-`Taskfile.yml` MUST include:
+`mise.toml` MUST include:
+
+```toml
+[tasks.test]
+run = "go test ./..."
+
+[tasks.fix]
+run = "go fix ./..."
+
+[tasks.format]
+run = "gofmt -w ."
+
+[tasks.lint]
+depends = ["lint:design"]
+
+[tasks."lint:design"]
+run = "if [ -f .puria/design/DESIGN.md ]; then npx --yes @google/design.md lint .puria/design/DESIGN.md; fi"
+
+[tasks.run]
+run = "go run ."
+
+[tasks.build]
+run = "go build -o bin/starter ."
+```
+
+---
+
+## GitHub Actions
+
+Every Go project MUST include `.github/workflows/ci.yml`.
+
+The GitHub workflow MUST run repository mise tasks.
+
+The GitHub workflow MUST run `go fix ./...` before lint, test, and build.
+
+The workflow MUST include:
 
 ```yaml
-version: "3"
+name: ci
 
-tasks:
-  test:
-    cmds:
-      - go test ./...
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
-  lint:
-    cmds:
-      - task lint:design
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-  lint:design:
-    cmds:
-      - if [ -f .puria/design/DESIGN.md ]; then npx --yes @google/design.md lint .puria/design/DESIGN.md; fi
+      - uses: jdx/mise-action@v2
 
-  run:
-    cmds:
-      - go run .
-
-  build:
-    cmds:
-      - go build -o bin/starter .
+      - run: mise run fix
+      - run: git diff --exit-code
+      - run: mise run lint
+      - run: mise run test
+      - run: mise run build
 ```
+
+If `go fix ./...` modifies files:
+
+→ the workflow MUST fail
+
+→ the branch MUST be updated with the generated fixes
+
+→ validation MUST be rerun
 
 ---
 
@@ -352,11 +406,11 @@ If `.puria/design/DESIGN.md` is present:
 
 → `mise.toml` MUST include `node = "latest"`
 
-→ agents MUST validate it through `task lint`
+→ agents MUST validate it through `mise run lint`
 
-→ `task lint` MUST run `task lint:design`
+→ `mise run lint` MUST depend on `lint:design`
 
-→ `task lint:design` MUST run `npx --yes @google/design.md lint .puria/design/DESIGN.md`
+→ `mise run lint:design` MUST run `npx --yes @google/design.md lint .puria/design/DESIGN.md`
 
 If `.puria/design/DESIGN.md` is absent:
 
@@ -449,7 +503,7 @@ If a repository requires a command to operate, that command MUST be declared in 
 
 A tool is required if it is used by:
 
-- `Taskfile.yml`
+- `mise.toml`
 - tests
 - build commands
 - lint commands
@@ -464,20 +518,43 @@ Missing required tools in `mise.toml`:
 
 ## Standard Go mise.toml
 
-Every Go project using `Taskfile.yml` MUST declare both Go and Task:
+Every Go project MUST declare Go and all required commands in `mise.toml`:
 
 ```toml
 [tools]
 go = "1.26.2"
-task = "latest"
+node = "latest"
+
+[tasks.fix]
+run = "go fix ./..."
+
+[tasks.format]
+run = "gofmt -w ."
+
+[tasks.test]
+run = "go test ./..."
+
+[tasks.lint]
+depends = ["lint:design"]
+
+[tasks."lint:design"]
+run = "if [ -f .puria/design/DESIGN.md ]; then npx --yes @google/design.md lint .puria/design/DESIGN.md; fi"
+
+[tasks.run]
+run = "go run ."
+
+[tasks.build]
+run = "go build -o bin/starter ."
 ```
 
-Agents MUST NOT create Taskfile.yml without also declaring task in mise.toml.
+Agents MUST NOT create `Taskfile.yml`.
 
-Then your `mise install` should actually install Task, and:
+Agents MUST NOT add `task = "latest"` to `mise.toml`.
+
+Then:
 
 ```sh
-mise exec -- task -a
+mise tasks
 ```
 
-should work even if your shell PATH is not reloaded.
+MUST show the required project commands.

@@ -279,7 +279,7 @@ Each milestone should normally have:
 
 ## Parent issue template
 
-```md
+````md
 # Week XX — <theme>
 
 ## Goal
@@ -315,13 +315,13 @@ Each milestone should normally have:
 ## Weekly PR
 
 TBD
-```
+````
 
 ---
 
 ## Sub-issue template
 
-```md
+````md
 # <area>: <imperative task>
 
 ## Context
@@ -347,13 +347,13 @@ TBD
 ## Recommended agent
 
 ## Notes
-```
+````
 
 ---
 
 ## Pull request template
 
-```md
+````md
 # Week XX — <theme>
 
 ## Summary
@@ -402,7 +402,7 @@ Required if auth, personal data, secrets, LLMs, logging, or permissions changed.
 ## Follow-up issues
 
 - [ ] #...
-```
+````
 
 ---
 

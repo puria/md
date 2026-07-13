@@ -206,7 +206,7 @@ The roadmap must produce something demonstrable at the end of each slice.
 
 Issues must be executable.
 
-```md
+````md
 # <title>
 
 ## Context
@@ -230,7 +230,7 @@ Issues must be executable.
 ```
 
 ## Notes
-```
+````
 
 ---
 

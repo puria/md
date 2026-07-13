@@ -167,7 +167,7 @@ Every PR MUST explain:
 
 Every phase PR MUST include:
 
-```md
+````md
 # <phase title>
 
 ## Summary
@@ -218,7 +218,7 @@ Required if UI, CLI output, generated documents, or visible behavior changed.
 ## Known risks
 
 ## Follow-up issues
-```
+````
 
 ---
 
