@@ -116,7 +116,7 @@ Each milestone should have:
 
 ## Parent issue template
 
-```md
+````md
 # Week XX — <theme>
 
 ## Goal
@@ -164,13 +164,13 @@ PR:
 ```text
 TBD
 ```
-```
+````
 
 ---
 
 ## Sub-issue template
 
-```md
+````md
 # <task title>
 
 ## Context
@@ -209,13 +209,13 @@ Recommended owner:
 - github-operator
 
 ## Notes
-```
+````
 
 ---
 
 ## Pull request template
 
-```md
+````md
 # <delivery slice>
 
 ## Summary
@@ -264,7 +264,7 @@ Required if auth, personal data, secrets, LLMs, logging, or permissions changed.
 ## Follow-up issues
 
 - [ ] #...
-```
+````
 
 ---
 
